@@ -3,7 +3,6 @@ import { PeopleService } from '../shared/services/people.service';
 import { IPeople } from '../shared/models/people.model';
 import { Icat } from '../shared/models/cats.model';
 import { Pets } from '../shared/enums/pet.enum';
-import { Gender } from '../shared/enums/gender.enum';
 import { OrderPipe } from 'ngx-order-pipe';
 
 @Component({
@@ -16,7 +15,6 @@ export class PeopleComponent implements OnInit {
   constructor(private readonly peopleService: PeopleService, private orderPipe: OrderPipe) { }
 
   public cats: Icat[] = [];
-  public gender = Gender;
   public sortProperty: string = "name";
   public genders: string[] = [];
   public ShowProgressBar: boolean = false;
