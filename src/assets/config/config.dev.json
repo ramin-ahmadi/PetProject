@@ -1,0 +1,11 @@
+{
+  "env": {
+    "name": "DEV"
+  },
+  "apiEndpoints": {
+    "base":"http://agl-developer-test.azurewebsites.net/",
+    "get": {
+      "people": "people.json"
+    }
+  }
+}

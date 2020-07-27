@@ -1,0 +1,10 @@
+<mat-progress-bar *ngIf="ShowProgressBar" mode="buffer"></mat-progress-bar>
+<section class="cats">
+  <div *ngFor="let gender of genders ">
+      <p>{{gender}}:</p>
+      <ul>
+        <li *ngFor="let cat of cats | filterByGender: gender" [ngClass]="gender"> {{cat.name}}</li>
+      </ul>
+  </div>
+</section>
+
