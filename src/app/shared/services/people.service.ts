@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, tap, retry, retryWhen, delay, take } from 'rxjs/operators';
+import { catchError, retryWhen, delay, take } from 'rxjs/operators';
 import { AppConfig } from '../../app.config';
-import { IPeople } from '../models/people.model';
+import { People } from '../models/people.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +11,21 @@ import { IPeople } from '../models/people.model';
 export class PeopleService {
 
   constructor(private http: HttpClient) { }
-  public baseUrl = AppConfig.settings.apiEndpoints.base;
 
-  getProducts(): Observable<IPeople[]> {
-    const getPeopleUrl = AppConfig.settings.apiEndpoints.get.people;
-    const getUrl = this.baseUrl+getPeopleUrl;
-    return this.http.get<IPeople[]>(getUrl)
+
+  getPeople(): Observable<People[]> {
+    let baseUrl: string;
+    let getPeopleUrl: string;
+    if(AppConfig && AppConfig.settings){
+      baseUrl = AppConfig.settings.apiEndpoints.base;
+      getPeopleUrl = AppConfig.settings.apiEndpoints.get.people;
+    } else {
+      baseUrl = 'http://agl-developer-test.azurewebsites.net/';
+      getPeopleUrl = "people.json"
+    }
+    let getUrl: string = baseUrl+getPeopleUrl;
+
+    return this.http.get<People[]>(getUrl)
       .pipe(
         catchError(this.handleError),
         retryWhen(errors => errors.pipe(delay(1000), take(2)))

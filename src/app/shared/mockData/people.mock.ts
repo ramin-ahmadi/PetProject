@@ -1,5 +1,7 @@
+
+import {People} from '../models/people.model';
 export class MockPeople {
-  public people = [{ "name": "Bob", "gender": "Male", "age": 23, "pets":
+  public people:People[] = [{ "name": "Bob", "gender": "Male", "age": 23, "pets":
    [{ "name": "Garfield", "type": "Cat" }, { "name": "Fido", "type": "Dog" }] },
    { "name": "Jennifer", "gender": "Female", "age": 18, "pets": [{ "name": "Garfield", "type": "Cat" }] },
    { "name": "Steve", "gender": "Male", "age": 45, "pets": null },

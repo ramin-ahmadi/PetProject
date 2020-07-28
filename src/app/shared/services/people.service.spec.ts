@@ -1,12 +1,16 @@
 import { TestBed } from '@angular/core/testing';
-
 import { PeopleService } from './people.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { AppConfig } from '../../app.config';
+
 
 describe('PeopleService', () => {
   let service: PeopleService;
-
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers:[AppConfig]
+    });
     service = TestBed.inject(PeopleService);
   });
 

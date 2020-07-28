@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PeopleService } from '../shared/services/people.service';
-import { IPeople } from '../shared/models/people.model';
-import { Icat } from '../shared/models/cats.model';
+import { People } from '../shared/models/people.model';
+import { Cat } from '../shared/models/cats.model';
 import { Pets } from '../shared/enums/pet.enum';
 import { OrderPipe } from 'ngx-order-pipe';
 
@@ -14,14 +14,14 @@ export class PeopleComponent implements OnInit {
 
   constructor(private readonly peopleService: PeopleService, private orderPipe: OrderPipe) { }
 
-  public cats: Icat[] = [];
+  public cats: Cat[] = [];
   public sortProperty: string = "name";
   public genders: string[] = [];
   public ShowProgressBar: boolean = false;
 
   ngOnInit(): void {
     this.ShowProgressBar = true;
-    this.peopleService.getProducts().subscribe(_people => {
+    this.peopleService.getPeople().subscribe(_people => {
       this.cats = this.setCats(_people);
       this.genders = this.getUniqueGenders(this.cats);
       this.ShowProgressBar = false;
@@ -29,13 +29,13 @@ export class PeopleComponent implements OnInit {
 
   }
 
-  public setCats(people: IPeople[]): Icat[] {
+  public setCats(people: People[]): Cat[] {
     people.forEach(_people => {
       if (_people.pets && _people.pets.length > 0) {
         let ownerGender: string = _people.gender;
         _people.pets.forEach(pet => {
           if (pet.type === Pets.Cat) {
-            let cat: Icat = new Icat();
+            let cat: Cat = new Cat();
             cat.name = pet.name;
             cat.gender = ownerGender;
             this.cats.push(cat);
@@ -46,11 +46,11 @@ export class PeopleComponent implements OnInit {
     return this.sortCats(this.cats, this.sortProperty);
   }
 
-  public sortCats(cats: Icat[], sortProperty: string): Icat[] {
+  public sortCats(cats: Cat[], sortProperty: string): Cat[] {
     return this.orderPipe.transform(cats, sortProperty);
   }
 
-  public getUniqueGenders(cats: Icat[]): string[] {
+  public getUniqueGenders(cats: Cat[]): string[] {
     return [...new Set(cats.map(item => item.gender))];
   }
 }

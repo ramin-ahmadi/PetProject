@@ -1,4 +1,4 @@
-export class Icat {
+export class Cat {
   name: string;
   gender: string;
 }

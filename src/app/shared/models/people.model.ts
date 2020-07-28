@@ -1,12 +1,12 @@
-export class IPeople {
+export class People {
   name: string;
   gender: string;
   age: number;
-  pets: IPets[];
+  pets: Pets[];
 }
 
 
-export class IPets {
+export class Pets {
   name: string;
   type: string
 }
